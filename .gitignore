@@ -2,3 +2,17 @@ node_modules/
 .DS_Store
 .eslintrc.js
 server.info
+commands.sh
+csstest.html
+inject_test.js
+log/
+report/
+reportPatch/
+report_*
+audits
+catalog.txt
+checker.js
+output.json
+package-lock.json
+paper-final-fixed.pdf
+
