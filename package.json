@@ -2,10 +2,10 @@
   "name": "webacc",
   "version": "1.0.0",
   "description": "for web accessibility auto repairing",
-  "main": "checker.js",
+  "main": "launch.js",
   "scripts": {
-    "start": "node checker.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node launch.js",
+    "test": "node analysis.js"
   },
   "keywords": [
     "repair"
@@ -15,7 +15,8 @@
   "devDependencies": {
     "eslint": "^6.3.0",
     "lighthouse": "^5.2.0",
-    "puppeteer": "^1.19.0"
+    "puppeteer": "^1.19.0",
+    "request-promise": "^4.2.4"
   },
   "dependencies": {
     "chrome-launcher": "^0.11.2"

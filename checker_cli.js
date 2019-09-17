@@ -35,16 +35,56 @@ function readUrls(path = 'catalog.txt') {
 
 
 async function auditByUrl(urls, taskId, quiet) {
+  const DEVTOOLS_RTT_ADJUSTMENT_FACTOR = 3.75;
+  const DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR = 0.9;
+  const TARGET_LATENCY = 70;
+  const TARGET_DOWNLOAD_THROUGHPUT = Math.floor(12 * 1024);
+  const TARGET_UPLOAD_THROUGHPUT = Math.floor(12 * 1024);
   const opts = {
     chromeFlags: ['--headless'],
+  };
+  let flagsDesktop = {
+    onlyCategories: ['accessibility'],
+    logLevel: 'info',
+    throttlingMethod: 'provided',
+    // disableDeviceEmulation: true,
+    // disableCpuThrottling: true,
+    disableStorageReset: true,
+    emulatedFormFactor: 'desktop',
+    port: null,
+    output: 'json',
+    throttling: {
+      rttMs: 0,
+      throughputKbps: 0,
+      requestLatencyMs: 0,
+      downloadThroughputKbps: 0,
+      uploadThroughputKbps: 0,
+      cpuSlowdownMultiplier: 0,
+    }
+  };
+  let flagsMobile = {
+    logLevel: 'info',
+    throttlingMethod: 'devtools',
     onlyCategories: ['accessibility'],
     output: 'json',
+    disableStorageReset: true,
+    emulatedFormFactor: 'mobile',
+    port: null,
+    throttling: {
+      rttMs: TARGET_LATENCY,
+      throughputKbps: TARGET_DOWNLOAD_THROUGHPUT,
+      requestLatencyMs: TARGET_LATENCY * DEVTOOLS_RTT_ADJUSTMENT_FACTOR,
+      downloadThroughputKbps: TARGET_DOWNLOAD_THROUGHPUT * DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR,
+      uploadThroughputKbps: TARGET_UPLOAD_THROUGHPUT * DEVTOOLS_THROUGHPUT_ADJUSTMENT_FACTOR,
+      cpuSlowdownMultiplier: 4,
+    }
   };
   // Launch chrome using chrome-launcher.
   const chrome = await chromeLauncher.launch(opts);
-  opts.port = chrome.port;
+  flagsDesktop.port = chrome.port;
+  flagsMobile.port = chrome.port;
   // Connect to it using puppeteer.connect().
-  const resp = await util.promisify(request)(`http://localhost:${opts.port}/json/version`);
+  const resp = await util.promisify(request)(`http://localhost:${flagsDesktop.port}/json/version`);
   const {
     webSocketDebuggerUrl
   } = JSON.parse(resp.body);
@@ -60,7 +100,7 @@ async function auditByUrl(urls, taskId, quiet) {
     try {
       const {
         lhr,
-      } = await lighthouse(URL, opts, null);
+      } = await lighthouse(URL, flagsDesktop, null);
       fs.writeFileSync(filePath, JSON.stringify(lhr));
       !quiet && console.log('[*] ' + blue(taskId) + ': 完成audit,生成文件 ' + filePath);
       !quiet && console.log(`Lighthouse scores: ${Object.values(lhr.categories).map(c => c.score).join(', ')}`);
@@ -98,10 +138,11 @@ async function main() {
         -h    show description of help.
         -s    where do you want to start among urls.
         -n    how many urls you want to audit in this task.
-        -p    the path of urls file, divided by \n.
+        -p    the path of urls file, divided by \\n.
         -q    be quiet when run.
         ---------------------------------------------------
         `);
+      return;
     }
   }
   const urls = readUrls(path).slice(startNum, startNum + taskCounts);

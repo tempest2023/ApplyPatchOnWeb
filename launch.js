@@ -19,8 +19,7 @@ const urls = readUrls();
 const taskNums = urls.length;
 
 // divide tasks as five ration
-let share = taskNums / 5;
-share = 1;
+const share = taskNums / 5;
 for (let i = 0; i < 5; i++) {
   let start = share * i;
   let nums = share;
