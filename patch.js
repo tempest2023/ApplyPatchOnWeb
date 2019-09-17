@@ -4,7 +4,8 @@ let report = null;
 let tasks = 1;
 let analysis = null;
 let randomly = true;
-
+let launchLighthouse = true;
+let headless = true;
 /* eslint-disable */
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
@@ -191,6 +192,7 @@ function applyPatch(patchList) {
   for (let i in patchList) {
     const sel = patchList[i]['selector'];
     const cssPatch = patchList[i]['insert'];
+    cssPatch['border'] = '2px dash red';
     const el = document.querySelector(sel);
     // console.log("[" + sel + "]" + '是否能找到el？', el !== null, el ? el.nodeName : '找不到nodeName');
     if (el !== null) {
@@ -310,10 +312,9 @@ async function generatePatchList(styleList) {
 async function launchBrowserWithInject(url, elementSelectors) {
   // Use Puppeteer to launch headful Chrome and don't use its default 800x600 viewport.
   const browser = await puppeteer.launch({
-    headless: false,
+    headless,
     defaultViewport: null,
   });
-
   // Wait for Lighthouse to open url, then customize network conditions.
   // Note: this will re-establish these conditions when LH reloads the page. Think that's ok....
   browser.on('targetcreated', async () => {
@@ -321,11 +322,8 @@ async function launchBrowserWithInject(url, elementSelectors) {
     let pageFilterResult = pages.filter(item => {
       return item != null ? item.url() === url : false;
     });
-    console.log(pageFilterResult.length);
     if (pageFilterResult.length === 1) {
       const page = pageFilterResult[0];
-      console.log(page === null, page != null ? page.url() : '');
-
       const bodyHandle = await page.$('body');
       let styleList = await page.evaluate(generateStyleList, elementSelectors).catch(e => {
         console.log('跳过此页面,在页面 ' + url + ' 查找元素出现错误,可能是因为动态加载元素的原因,元素选择器:' + JSON.stringify(elementSelectors));
@@ -333,23 +331,12 @@ async function launchBrowserWithInject(url, elementSelectors) {
         return browser;
       });
       console.log(styleList['li'].length);
-      fs.writeFileSync('output.json', JSON.stringify(styleList));
       const patchList = await generatePatchList(styleList);
       // fs.writeFileSync('output.txt', JSON.stringify(patchList));
       await page.evaluate(applyPatch, patchList).catch(e => {
         console.log('应用patch时出现错误:', e);
       });
       await bodyHandle.dispose();
-      // Note: can't use page.addStyleTag due to github.com/GoogleChrome/puppeteer/issues/1955.
-      // Do it ourselves.
-
-      // const client = await page.target().createCDPSession();
-      // await client.send('Runtime.evaluate', {
-      //   expression: `(${generateStyleList.toString()})('${elementSelectors}')`
-      // }).catch(e => {
-      //   console.log('执行页面内生成styleList出现错误:', e);
-      // });
-
     }
   });
   return browser;
@@ -357,7 +344,7 @@ async function launchBrowserWithInject(url, elementSelectors) {
 
 async function launchBrowserWithPatch(url, elementSelectors) {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless,
     defaultViewport: null,
   });
   const page = await browser.newPage();
@@ -373,7 +360,7 @@ async function launchBrowserWithPatch(url, elementSelectors) {
     console.log(e);
     return browser;
   });
-  fs.writeFileSync('output.json', JSON.stringify(styleList));
+  // fs.writeFileSync('output.json', JSON.stringify(styleList));
   const patchList = await generatePatchList(styleList);
   // fs.writeFileSync('output.txt', JSON.stringify(patchList));
   await page.evaluate(applyPatch, patchList).catch(e => {
@@ -381,6 +368,7 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   });
   return browser;
 }
+
 async function lighthouseCheck(browser, url) {
   let filePath = 'reportPatch/' + url.replace(/[/]/g, '|') + '.json';
   let flagsDesktop = {
@@ -420,9 +408,16 @@ async function patchByAnalysis(filepath, tasks) {
     const url = nowTask['url'];
     // 生成elementSelectors
     const elementSelectors = generateElementSelectors(nowTask);
-    const browser = await launchBrowserWithInject(url, elementSelectors);
-    await lighthouseCheck(browser, url);
-    await browser.close();
+    if (launchLighthouse) {
+      const browser = await launchBrowserWithInject(url, elementSelectors);
+      await lighthouseCheck(browser, url);
+      await browser.close();
+    } else {
+      const browser = await launchBrowserWithPatch(url, elementSelectors);
+      await setTimeout(async () => {
+        await browser.close();
+      }, 2000);
+    }
   }
 }
 
@@ -447,15 +442,23 @@ function handleOpts() {
     if (args[i] === '-r') {
       randomly = args[i + 1] === 'false' ? false : true || randomly;
     }
+    if (args[i] === '-l') {
+      launchLighthouse = args[i + 1] === 'false' ? false : true || launchLighthouse;
+    }
+    if (args[i] === '-headless') {
+      headless = args[i + 1] === 'false' ? false : true || headless;
+    }
     if (args[i] === '-h') {
       console.log(`
         ---------------------------------------------------
-        -h    show description of help.
-        -p    [str] the path of lighthouse report which you want to patch and check.
-        -q    [bool] be quiet when run.
-        -a    [str] the analysis file, like reportResult_${new Date().getTime()}.json
-        -n    [int] how many patch task you want to run in reportResult?
-        -r    [bool] whether choose task randomly. (default: true)
+        -h        show description of help.
+        -p        [str] (Deprecated) the path of lighthouse report which you want to patch and check.
+        -q        [bool] be quiet when run.
+        -a        [str] the analysis file, like reportResult_${new Date().getTime()}.json
+        -n        [int] how many patch task you want to run in reportResult?
+        -r        [bool] whether choosing task randomly. (default: true)
+        -l        [bool] whether launching lighthouse. (default: true)
+        -headless [bool] whether using headless browser. (default: true)
         ---------------------------------------------------
         `);
       return;
@@ -470,31 +473,10 @@ async function main() {
   if (analysis !== null) {
     await patchByAnalysis(analysis, tasks, quiet);
   }
-  // unsupport
+  // Deprecated
   // if (report !== null) {
   //   await patchByReport(report, quiet);
   // }
 }
 
 main();
-/*
-browser.on('targetchanged', async target => {
-  const page = await target.page().catch(e => {
-    console.error(e);
-  });
-  // function addStyleContent(content) {
-  //   for (let sel of elementSelectors) {
-  //     console.log('输出...');
-  //     console.log(window.querySelector(sel));
-  //   }
-  //   const style = document.createElement('style');
-  //   style.type = 'text/css';
-  //   style.appendChild(document.createTextNode(content));
-  //   document.head.appendChild(style);
-  // }
-  // const css = '* {color: red}';
-  if (page && page.url() === url) {
-    console.log('[*] 注入页面:', page.url());
-  }
-});
- */
