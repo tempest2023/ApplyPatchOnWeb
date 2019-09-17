@@ -136,10 +136,10 @@ async function main() {
       console.log(`
         ---------------------------------------------------
         -h    show description of help.
-        -s    where do you want to start among urls.
-        -n    how many urls you want to audit in this task.
-        -p    the path of urls file, divided by \\n.
-        -q    be quiet when run.
+        -s    [int] where do you want to start among urls.
+        -n    [int] how many urls you want to audit in this task.
+        -p    [str] the path of urls file, divided by \\n.
+        -q    [bool] be quiet when run.
         ---------------------------------------------------
         `);
       return;
