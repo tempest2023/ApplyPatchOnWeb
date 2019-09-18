@@ -87,6 +87,11 @@ function generateStyleList(elementSelectors) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
   }
+  const markPosition = function(el) {
+    console.log('元素在页面的绝对位置:（' + el.offsetTop + "," + el.offsetLeft + ")");
+    console.log('元素内容:', el.innerText);
+    window.scrollTo(el.offsetLeft, el.offsetTop);
+  }
   const cssPath = function(el) {
     if (!(el instanceof Element)) {
       console.error('元素不属于Element,无法获取CSSPath');
@@ -125,6 +130,8 @@ function generateStyleList(elementSelectors) {
   // 处理ul缺少li的错误
   for (let sel of elementSelectors['ul']) {
     let el = window.document.querySelector(sel);
+    markPosition(el);
+
     // 获取child信息
     try {
       if (el !== null && el !== undefined) {
@@ -152,6 +159,7 @@ function generateStyleList(elementSelectors) {
   for (let sel of elementSelectors['li']) {
     // find the same parentNode
     let el = window.document.querySelector(sel);
+    markPosition(el);
     // 获取child信息
     try {
       if (el !== null && el != undefined) {
@@ -192,8 +200,13 @@ function applyPatch(patchList) {
   for (let i in patchList) {
     const sel = patchList[i]['selector'];
     const cssPatch = patchList[i]['insert'];
-    cssPatch['border'] = '2px dash red';
+    if (cssPatch) {
+      cssPatch['border'] = '2px dashed red!important';
+    } else {
+      return;
+    }
     const el = document.querySelector(sel);
+
     // console.log("[" + sel + "]" + '是否能找到el？', el !== null, el ? el.nodeName : '找不到nodeName');
     if (el !== null) {
       console.log('-----------------------修复属性-----------------------');
@@ -325,14 +338,18 @@ async function launchBrowserWithInject(url, elementSelectors) {
     if (pageFilterResult.length === 1) {
       const page = pageFilterResult[0];
       const bodyHandle = await page.$('body');
+      bindTestOutput(page);
+      console.log('[*] 在lighthouse启动前进行注入.');
       let styleList = await page.evaluate(generateStyleList, elementSelectors).catch(e => {
         console.log('跳过此页面,在页面 ' + url + ' 查找元素出现错误,可能是因为动态加载元素的原因,元素选择器:' + JSON.stringify(elementSelectors));
         console.log(e);
-        return browser;
       });
-      console.log(styleList['li'].length);
+      if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
+        return false;
+      }
+
       const patchList = await generatePatchList(styleList);
-      // fs.writeFileSync('output.txt', JSON.stringify(patchList));
+      fs.writeFileSync('output.json', JSON.stringify(patchList));
       await page.evaluate(applyPatch, patchList).catch(e => {
         console.log('应用patch时出现错误:', e);
       });
@@ -358,8 +375,10 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   let styleList = await page.evaluate(generateStyleList, elementSelectors).catch(e => {
     console.log('跳过此页面,在页面 ' + url + ' 查找元素出现错误,可能是因为动态加载元素的原因,元素选择器:' + JSON.stringify(elementSelectors));
     console.log(e);
-    return browser;
   });
+  if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
+    return false;
+  }
   // fs.writeFileSync('output.json', JSON.stringify(styleList));
   const patchList = await generatePatchList(styleList);
   // fs.writeFileSync('output.txt', JSON.stringify(patchList));
@@ -411,12 +430,16 @@ async function patchByAnalysis(filepath, tasks) {
     if (launchLighthouse) {
       const browser = await launchBrowserWithInject(url, elementSelectors);
       await lighthouseCheck(browser, url);
-      await browser.close();
-    } else {
-      const browser = await launchBrowserWithPatch(url, elementSelectors);
+      console.log('[*] open this page for 20s');
       await setTimeout(async () => {
         await browser.close();
-      }, 2000);
+      }, 20000);
+    } else {
+      const browser = await launchBrowserWithPatch(url, elementSelectors);
+      console.log('[*] open this page for 20s');
+      await setTimeout(async () => {
+        await browser.close();
+      }, 20000);
     }
   }
 }
