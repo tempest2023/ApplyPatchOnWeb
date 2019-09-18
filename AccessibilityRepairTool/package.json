@@ -1,0 +1,21 @@
+{
+  "name": "painstaking-lettuce-drum",
+  "productName": "painstaking-lettuce-drum",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "rentao",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chrome-launcher": "^0.11.2",
+    "electron": "5.0.0-beta.7",
+    "jquery": "^3.4.1",
+    "puppeteer": "^1.20.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
