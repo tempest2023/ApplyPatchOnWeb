@@ -15,4 +15,6 @@ checker.js
 output.json
 package-lock.json
 paper-final-fixed.pdf
-
+AccessibilityRepairTool/package-lock.json
+AccessibilityRepairTool/node_modules/
+AccessibilityRepairTool/reportPath/

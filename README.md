@@ -22,4 +22,8 @@ node patch.js -a report_{new Date().getTime()}.json -n 1 -r false
 # More help by -h
 
 
+# Start electron tool
+cd AccessibilityRepairTool
+npm install
+npm start
 ```

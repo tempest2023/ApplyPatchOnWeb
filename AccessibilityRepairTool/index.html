@@ -31,6 +31,27 @@
       right: 20px;
     }
 
+    .target_url {
+      vertical-align: middle;
+      position: absolute;
+      top: 700px;
+      right: 50px;
+    }
+
+    #target_url {
+      width: 200px;
+      height: 20px;
+    }
+
+    #use_target_url {
+      display: block;
+      margin-top: 20px;
+      margin-left: auto;
+      width: 30px;
+      height: 25px;
+      margin-left: 160px;
+    }
+
     .name_label {
       line-height: normal;
       display: inline-block;
@@ -122,6 +143,11 @@
     <div class='patch_elements'>
       <label class='name_label'>Patch</label>
       <textarea name="patch" id="patch" rows="16" cols="40"></textarea>
+    </div>
+    <div class='target_url'>
+      <label>Target Url:</label>
+      <input type="text" id='target_url' name="" value="" placeholder="input a url included in analysis report">
+      <button id='use_target_url'>ok!</button>
     </div>
   </div>
   <script>
