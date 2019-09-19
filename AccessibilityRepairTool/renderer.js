@@ -50,6 +50,14 @@ function CSSDeclarationToJSON(css) {
   }
   return newCss;
 }
+
+function CSSFormat(name) {
+  let newName = name.replace(/([A-Z])/g, "-$1").toLowerCase();
+  if (name.indexOf('webkit') != -1) {
+    newName = '-' + newName;
+  }
+  return newName;
+}
 /*
   patchData:{
     insert: CSSDeclarationObject // 插入元素的CSS patch
@@ -218,11 +226,18 @@ function generateStyleList(elementSelectors) {
 
 // This function is used in page which means it has a totally different env.
 function applyPatch(patchList) {
+  const CSSFormat = function(name) {
+    let newName = name.replace(/([A-Z])/g, "-$1").toLowerCase();
+    if (name.indexOf('webkit') != -1) {
+      newName = '-' + newName;
+    }
+    return newName;
+  }
   for (let i in patchList) {
     const sel = patchList[i]['selector'];
     const cssPatch = patchList[i]['insert'];
     if (cssPatch) {
-      cssPatch['border'] = '2px dashed red!important';
+      // cssPatch['border'] = '2px dashed red!important';
     } else {
       console.log('cssPatch是空,无法修复');
       return;
@@ -232,11 +247,20 @@ function applyPatch(patchList) {
     // console.log("[" + sel + "]" + '是否能找到el？', el !== null, el ? el.nodeName : '找不到nodeName');
     if (el !== null) {
       console.log('-----------------------修复属性-----------------------');
+      let originStyle = el.getAttribute('style');
+      if (originStyle == null) {
+        originStyle = '';
+      }
       for (const item in cssPatch) {
         console.log('[*] 设置属性' + item + "为" + cssPatch[item]);
-        el.style[item] = cssPatch[item];
+        originStyle += CSSFormat(item) + ":" + cssPatch[item] + ";";
       }
+      originStyle += ";border:2px dashed red!important;";
+      console.log('[*] 最终应用属性:', originStyle);
+      el.setAttribute('style', originStyle);
       console.log('-----------------------修复完毕-----------------------');
+    } else {
+      console.log("Error: 修复时元素为null,无法应用patch.");
     }
   }
   return true;
@@ -316,7 +340,7 @@ async function generatePatchList(styleList) {
       // fs.writeFileSync('output.txt', 'send arg for patch:\n' + JSON.stringify(data) + '\n');
       let patchData = await getPatch(data);
       patchData['selector'] = item['selector'];
-      console.log('LI-------------PatchData\n', JSON.stringify(patchData) + '\n', item['selector']);
+      console.log('LI问题-------------PatchData\n', JSON.stringify(patchData) + '\n', item['selector']);
       // fs.writeFileSync('output.txt', 'get patchData:\n' + JSON.stringify(patchData) + '\n');
       patchList.push(patchData);
       // fs.writeFileSync('output.txt', '\ngetData:' + JSON.stringify(patchData) + '\n');
@@ -333,7 +357,7 @@ async function generatePatchList(styleList) {
       // fs.writeFileSync('output.txt', 'send arg for patch:\n' + JSON.stringify(data) + '\n');
       let patchData = await getPatch(data);
       patchData['selector'] = item['selector'][index];
-      console.log('UL-------------PatchData\n', JSON.stringify(patchData) + '\n', item['selector']);
+      console.log('UL问题-------------PatchData\n', JSON.stringify(patchData) + '\n', item['selector']);
       // fs.writeFileSync('output.txt', 'get patchData:\n' + JSON.stringify(patchData) + '\n');
       patchList.push(patchData);
       // fs.writeFileSync('output.txt', '\ngetData:' + JSON.stringify(patchData) + '\n');
@@ -388,6 +412,7 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   // }
 
   if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
+    console.log('Error: 未找到错误元素,styleList中错误元素数量为0');
     return browser;
   }
   // fs.writeFileSync('output.json', JSON.stringify(styleList));
@@ -430,10 +455,9 @@ async function lighthouseCheck(browser, url) {
   }
 }
 
-async function patchByAnalysis(originData, tasks) {
+async function patchByAnalysis(originData, taskList) {
 
   // get taskList by analysis report.successList
-  const taskList = generateTaskList(originData['successList'], tasks);
   for (let i in taskList) {
     const nowTask = taskList[i];
     const url = nowTask['url'];
@@ -463,7 +487,8 @@ async function main() {
   });
   if (analysis !== null) {
     reportData = await readReport(analysis);
-    await patchByAnalysis(reportData, tasks, quiet);
+    const taskList = generateTaskList(reportData['successList'], tasks);
+    await patchByAnalysis(reportData, taskList);
   } else {
     alert('Error: analysis report is null.');
   }
@@ -493,7 +518,23 @@ $(document).ready(function() {
     if (browser) {
       await browser.close();
     }
-    await patchByAnalysis(reportData, tasks, quiet);
+    const taskList = generateTaskList(reportData['successList'], tasks);
+    await patchByAnalysis(reportData, taskList);
   })
+  $("#use_target_url").click(async e => {
+    let url = $('#target_url').val();
+    if (url.length <= 0) {
+      alert('please input a valid url!');
+      return;
+    }
+    if (browser) {
+      await browser.close();
+    }
+    const taskList = reportData['successList'].filter(item => {
+      return url === item.url;
+    });
+    console.log('targetList:', taskList);
+    await patchByAnalysis(reportData, taskList);
+  });
   // main();
 });
