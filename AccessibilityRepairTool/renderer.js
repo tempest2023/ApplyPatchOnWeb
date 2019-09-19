@@ -1,27 +1,25 @@
-// Global Variables
-let quiet = false;
-let report = null;
-let tasks = 1;
-let analysis = null;
-let randomly = true;
-let launchLighthouse = true;
-let headless = true;
-/* eslint-disable */
-const lighthouse = require('lighthouse');
+// This file is required by the index.html file and will
+// be executed in the renderer process for that window.
+// All of the Node.js APIs are available in this process.
 const chromeLauncher = require('chrome-launcher');
 const puppeteer = require('puppeteer');
 const request = require('request');
 const rp = require('request-promise');
 const util = require('util');
 const fs = require("fs");
-// util
-function green(s) {
-  return '\u001b[0;32;40m' + s + '\u001b[0m';
-}
+const $ = require("jquery");
 
-function blue(s) {
-  return '\u001b[1;34;40m' + s + '\u001b[0m';
-}
+const patchUrl = 'http://127.0.0.1:5000/patch'
+
+let quiet = false;
+let tasks = 1;
+let analysis = null;
+let randomly = false;
+let launchLighthouse = false;
+let headless = false;
+let errorOccured = false;
+let reportData = null;
+let browser = null;
 
 function listFiles(path = './html') {
   if (!fs) {
@@ -29,9 +27,28 @@ function listFiles(path = './html') {
   }
   return fs.readdirSync(path);
 }
-/* eslint-enable */
 
-const patchUrl = 'http://127.0.0.1:5000/patch'
+function CSSDeclarationToJSON(css) {
+  if (typeof css === "string") {
+    css = JSON.parse(css);
+  }
+  let newCss = {};
+  for (let key in css) {
+    if (!isNaN(parseInt(key))) {
+      let newKey = css[key];
+      if (newKey[0] === '-') {
+        newKey = newKey.substr(1, newKey.length - 1);
+      }
+      for (let i = 0; i < newKey.length; i++) {
+        if (newKey[i] === '-') {
+          newKey = newKey.slice(0, i) + newKey[i + 1].toUpperCase() + newKey.slice(i + 2);
+        }
+      }
+      newCss[newKey] = css[newKey];
+    }
+  }
+  return newCss;
+}
 /*
   patchData:{
     insert: CSSDeclarationObject // 插入元素的CSS patch
@@ -88,6 +105,9 @@ function generateStyleList(elementSelectors) {
     wrapper.appendChild(el);
   }
   const markPosition = function(el) {
+    if (!el) {
+      return;
+    }
     console.log('元素在页面的绝对位置:（' + el.offsetTop + "," + el.offsetLeft + ")");
     console.log('元素内容:', el.innerText);
     window.scrollTo(el.offsetLeft, el.offsetTop);
@@ -321,44 +341,6 @@ async function generatePatchList(styleList) {
   return patchList;
 }
 
-
-async function launchBrowserWithInject(url, elementSelectors) {
-  // Use Puppeteer to launch headful Chrome and don't use its default 800x600 viewport.
-  const browser = await puppeteer.launch({
-    headless,
-    defaultViewport: null,
-  });
-  // Wait for Lighthouse to open url, then customize network conditions.
-  // Note: this will re-establish these conditions when LH reloads the page. Think that's ok....
-  browser.on('targetcreated', async () => {
-    const pages = await browser.pages();
-    let pageFilterResult = pages.filter(item => {
-      return item != null ? item.url() === url : false;
-    });
-    if (pageFilterResult.length === 1) {
-      const page = pageFilterResult[0];
-      const bodyHandle = await page.$('body');
-      bindTestOutput(page);
-      console.log('[*] 在lighthouse启动前进行注入.');
-      let styleList = await page.evaluate(generateStyleList, elementSelectors).catch(e => {
-        console.log('跳过此页面,在页面 ' + url + ' 查找元素出现错误,可能是因为动态加载元素的原因,元素选择器:' + JSON.stringify(elementSelectors));
-        console.log(e);
-      });
-      if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
-        return false;
-      }
-
-      const patchList = await generatePatchList(styleList);
-      fs.writeFileSync('output.json', JSON.stringify(patchList));
-      await page.evaluate(applyPatch, patchList).catch(e => {
-        console.log('应用patch时出现错误:', e);
-      });
-      await bodyHandle.dispose();
-    }
-  });
-  return browser;
-}
-
 async function launchBrowserWithPatch(url, elementSelectors) {
   const browser = await puppeteer.launch({
     headless,
@@ -375,7 +357,36 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   let styleList = await page.evaluate(generateStyleList, elementSelectors).catch(e => {
     console.log('跳过此页面,在页面 ' + url + ' 查找元素出现错误,可能是因为动态加载元素的原因,元素选择器:' + JSON.stringify(elementSelectors));
     console.log(e);
+    errorOccured = true;
   });
+  // show styleList in textarea
+  let showStyle = '';
+  if (styleList['ul'].length > 0) {
+    for (let i in styleList['ul'][0]) {
+      if (i === 'insert') {
+        let styles = CSSDeclarationToJSON(styleList['ul'][0][i][0]);
+        for (let s in styles) {
+          showStyle += s + ' : ' + styles[s] + "\r\n";
+        }
+      }
+    }
+    console.log('输出：', showStyle);
+    $('#origin').val(showStyle);
+    // document.querySelector('#origin').innerText = showStyle;
+  } else if (styleList['li'].length > 0) {
+    for (let i in styleList['li'][0]) {
+      if (i === 'insert') {
+        let styles = CSSDeclarationToJSON(styleList['li'][0][i][0]);
+        for (let s in styles) {
+          showStyle += s + ' : ' + styles[s] + "\r\n";
+        }
+      }
+    }
+    console.log('输出：', showStyle);
+    $('#origin').val(showStyle);
+    // document.querySelector('#origin').innerText = showStyle;
+  }
+
   if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
     return browser;
   }
@@ -384,6 +395,8 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   // fs.writeFileSync('output.txt', JSON.stringify(patchList));
   await page.evaluate(applyPatch, patchList).catch(e => {
     console.log('应用patch时出现错误:', e);
+    errorOccured = true;
+    return browser;
   });
   return browser;
 }
@@ -417,25 +430,20 @@ async function lighthouseCheck(browser, url) {
   }
 }
 
-async function patchByAnalysis(filepath, tasks) {
-  const data = fs.readFileSync(filepath).toString();
-  const originData = JSON.parse(data);
+async function patchByAnalysis(originData, tasks) {
+
   // get taskList by analysis report.successList
   const taskList = generateTaskList(originData['successList'], tasks);
   for (let i in taskList) {
     const nowTask = taskList[i];
     const url = nowTask['url'];
+    document.querySelector("#iframe_url").innerText = url;
+    $("#origin_iframe").attr('src', url);
     // 生成elementSelectors
     const elementSelectors = generateElementSelectors(nowTask);
-    if (launchLighthouse) {
-      const browser = await launchBrowserWithInject(url, elementSelectors);
-      await lighthouseCheck(browser, url);
-      console.log('[*] open this page for 20s');
-      await setTimeout(async () => {
-        await browser.close();
-      }, 20000);
-    } else {
-      const browser = await launchBrowserWithPatch(url, elementSelectors);
+
+    browser = await launchBrowserWithPatch(url, elementSelectors);
+    if (!errorOccured) {
       console.log('[*] open this page for 20s');
       await setTimeout(async () => {
         await browser.close();
@@ -443,58 +451,21 @@ async function patchByAnalysis(filepath, tasks) {
     }
   }
 }
-
-function handleOpts() {
-  /* eslint-disable */
-  var args = process.argv.splice(2)
-  /* eslint-enable */
-
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '-n') {
-      tasks = parseInt(args[i + 1]) || tasks;
-    }
-    if (args[i] === '-p') {
-      report = args[i + 1] || report;
-    }
-    if (args[i] === '-a') {
-      analysis = args[i + 1] || analysis;
-    }
-    if (args[i] === '-q') {
-      quiet = true;
-    }
-    if (args[i] === '-r') {
-      randomly = args[i + 1] === 'false' ? false : true || randomly;
-    }
-    if (args[i] === '-l') {
-      launchLighthouse = args[i + 1] === 'false' ? false : true || launchLighthouse;
-    }
-    if (args[i] === '-headless') {
-      headless = args[i + 1] === 'false' ? false : true || headless;
-    }
-    if (args[i] === '-h') {
-      console.log(`
-        ---------------------------------------------------
-        -h        show description of help.
-        -p        [str] (Deprecated) the path of lighthouse report which you want to patch and check.
-        -q        [bool] be quiet when run.
-        -a        [str] the analysis file, like reportResult_${new Date().getTime()}.json
-        -n        [int] how many patch task you want to run in reportResult?
-        -r        [bool] whether choosing task randomly. (default: true)
-        -l        [bool] whether launching lighthouse. (default: true)
-        -headless [bool] whether using headless browser. (default: true)
-        ---------------------------------------------------
-        `);
-      return;
-    }
-  }
+async function readReport(filepath) {
+  const data = fs.readFileSync(filepath).toString();
+  const originData = JSON.parse(data);
+  return originData;
 }
 async function main() {
-  handleOpts();
+
   fs.mkdir('./reportPatch', () => {
     // !quiet && console.log('report已存在,无需创建');
   });
   if (analysis !== null) {
-    await patchByAnalysis(analysis, tasks, quiet);
+    reportData = await readReport(analysis);
+    await patchByAnalysis(reportData, tasks, quiet);
+  } else {
+    alert('Error: analysis report is null.');
   }
   // Deprecated
   // if (report !== null) {
@@ -502,4 +473,27 @@ async function main() {
   // }
 }
 
-main();
+$(document).ready(function() {
+  $("#patch").change(e => {
+    let v = $("#patch").val();
+    console.log(v);
+  })
+  $("#origin").change(e => {
+    let v = $("#origin").val();
+
+  });
+  $("#analysis_report").change(() => {
+    analysis = document.querySelector('#analysis_report').files[0]['path'];
+    main();
+  });
+  $("#refresh_icon").click(async e => {
+    if (!reportData) {
+      alert('You have not submit analysis report!');
+    }
+    if (browser) {
+      await browser.close();
+    }
+    await patchByAnalysis(reportData, tasks, quiet);
+  })
+  // main();
+});
