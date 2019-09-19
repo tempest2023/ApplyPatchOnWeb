@@ -1,6 +1,7 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
+/* eslint-disable */
 const chromeLauncher = require('chrome-launcher');
 const puppeteer = require('puppeteer');
 const request = require('request');
@@ -14,7 +15,7 @@ const patchUrl = 'http://127.0.0.1:5000/patch'
 let quiet = false;
 let tasks = 1;
 let analysis = null;
-let randomly = false;
+let randomly = true;
 let launchLighthouse = false;
 let headless = false;
 let errorOccured = false;
@@ -223,6 +224,7 @@ function applyPatch(patchList) {
     if (cssPatch) {
       cssPatch['border'] = '2px dashed red!important';
     } else {
+      console.log('cssPatch是空,无法修复');
       return;
     }
     const el = document.querySelector(sel);
@@ -328,7 +330,6 @@ async function generatePatchList(styleList) {
         'child': child,
         'insert': insert,
       }
-      console.log(item['selector']);
       // fs.writeFileSync('output.txt', 'send arg for patch:\n' + JSON.stringify(data) + '\n');
       let patchData = await getPatch(data);
       patchData['selector'] = item['selector'][index];
@@ -349,6 +350,7 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   const page = await browser.newPage();
   await page.goto(url).catch(e => {
     console.log('[*] Error:跳转页面超时,跳过此页面.', e);
+    errorOccured = true;
     return browser;
   });
   // Bind test output
@@ -360,32 +362,30 @@ async function launchBrowserWithPatch(url, elementSelectors) {
     errorOccured = true;
   });
   // show styleList in textarea
-  let showStyle = '';
-  if (styleList['ul'].length > 0) {
-    for (let i in styleList['ul'][0]) {
-      if (i === 'insert') {
-        let styles = CSSDeclarationToJSON(styleList['ul'][0][i][0]);
-        for (let s in styles) {
-          showStyle += s + ' : ' + styles[s] + "\r\n";
-        }
-      }
-    }
-    console.log('输出：', showStyle);
-    $('#origin').val(showStyle);
-    // document.querySelector('#origin').innerText = showStyle;
-  } else if (styleList['li'].length > 0) {
-    for (let i in styleList['li'][0]) {
-      if (i === 'insert') {
-        let styles = CSSDeclarationToJSON(styleList['li'][0][i][0]);
-        for (let s in styles) {
-          showStyle += s + ' : ' + styles[s] + "\r\n";
-        }
-      }
-    }
-    console.log('输出：', showStyle);
-    $('#origin').val(showStyle);
-    // document.querySelector('#origin').innerText = showStyle;
-  }
+  // let showStyle = '';
+  // if (styleList['ul'].length > 0) {
+  //   for (let i in styleList['ul'][0]) {
+  //     if (i === 'insert') {
+  //       let styles = CSSDeclarationToJSON(styleList['ul'][0][i][0]);
+  //       for (let s in styles) {
+  //         showStyle += s + ' : ' + styles[s] + "\r\n";
+  //       }
+  //     }
+  //   }
+  //   $('#origin').val(showStyle);
+  //   // document.querySelector('#origin').innerText = showStyle;
+  // } else if (styleList['li'].length > 0) {
+  //   for (let i in styleList['li'][0]) {
+  //     if (i === 'insert') {
+  //       let styles = CSSDeclarationToJSON(styleList['li'][0][i][0]);
+  //       for (let s in styles) {
+  //         showStyle += s + ' : ' + styles[s] + "\r\n";
+  //       }
+  //     }
+  //   }
+  //   $('#origin').val(showStyle);
+  //   // document.querySelector('#origin').innerText = showStyle;
+  // }
 
   if (styleList['ul'].length <= 0 && styleList['li'].length <= 0) {
     return browser;
@@ -444,10 +444,10 @@ async function patchByAnalysis(originData, tasks) {
 
     browser = await launchBrowserWithPatch(url, elementSelectors);
     if (!errorOccured) {
-      console.log('[*] open this page for 20s');
+      console.log('[*] open this page for 2000s');
       await setTimeout(async () => {
         await browser.close();
-      }, 20000);
+      }, 2000000);
     }
   }
 }
