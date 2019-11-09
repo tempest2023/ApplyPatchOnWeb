@@ -1,0 +1,58 @@
+{
+  "root": {
+    "nodeName": "UL",
+    "class": "srp-results srp-list clearfix",
+    "style": "",
+    "role": {},
+    "dataset": {},
+    "id": null,
+    "inlineStyle": null
+  },
+  "children": [{
+    "nodeName": "DIV",
+    "inlineStyle": null,
+    "id": "srp-river-results-save_search1",
+    "class": "srp-river-answer srp-river-answer--SAVE_CARD",
+    "role": {}
+  }, {
+    "nodeName": "DIV",
+    "inlineStyle": null,
+    "id": "srp-river-results-message1",
+    "class": "srp-river-answer srp-river-answer--REWRITE_START",
+    "role": {
+      "view": "mi:1706|iid:1"
+    }
+  }, {
+    "nodeName": "LI",
+    "inlineStyle": null,
+    "id": "srp-river-results-listing1",
+    "class": "s-item ",
+    "role": {
+      "view": "mi:1686|iid:1"
+    }
+  }, {
+    "nodeName": "LI",
+    "inlineStyle": null,
+    "id": "srp-river-results-listing2",
+    "class": "s-item ",
+    "role": {
+      "view": "mi:1686|iid:2"
+    }
+  }, {
+    "nodeName": "LI",
+    "inlineStyle": null,
+    "id": "srp-river-results-listing3",
+    "class": "s-item ",
+    "role": {
+      "view": "mi:1686|iid:3"
+    }
+  }, {
+    "nodeName": "LI",
+    "inlineStyle": null,
+    "id": "srp-river-results-listing4",
+    "class": "s-item ",
+    "role": {
+      "view": "mi:1686|iid:4"
+    }
+  }]
+}

@@ -1,0 +1,1853 @@
+{
+  "error": {
+    "Required Accessibility gatherer did not run.": 0
+  },
+  "errorList": [],
+  "success": {
+    "has accessibility error": 0,
+    "useless report": 84,
+    "has list error": 16
+  },
+  "successList": [{
+    "name": "report_http:||www.dyslexia-unlocked.com|accessibility.html.json",
+    "url": "http://www.dyslexia-unlocked.com/accessibility.html",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#navmenu",
+              "path": "1,HTML,2,BODY,0,DIV,2,DIV,0,UL",
+              "snippet": "<ul id=\"navmenu\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Home\nWhat we offer\nDisabilities\nOur associates\nResources\nContact us"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "div > li",
+              "path": "1,HTML,2,BODY,0,DIV,2,DIV,0,UL,1,DIV,0,LI",
+              "snippet": "<li><a title=\"dyslexia unlocked - what we offer\" href=\"what_we_offer.html\">What we offer</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "What we offer"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||accessibility.umn.edu|core-skills|hyperlinks.json",
+    "url": "https://accessibility.umn.edu/core-skills/hyperlinks",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#umnhf-f-myu > ul[role=\"presentation\"] > li:nth-child(1)",
+              "path": "10,HTML,2,BODY,14,DIV,3,FOOTER,0,NAV,1,UL,0,LI",
+              "snippet": "<li><a href=\"http://onestop.umn.edu/\">One Stop</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "One Stop"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "#umnhf-f-myu > ul[role=\"presentation\"] > li:nth-child(2)",
+              "path": "10,HTML,2,BODY,14,DIV,3,FOOTER,0,NAV,1,UL,1,LI",
+              "snippet": "<li><a href=\"https://www.myu.umn.edu/\">MyU <span></span></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "MyU "
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||ged.com|accessibility_statement|.json",
+    "url": "https://ged.com/accessibility_statement/",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#breadcrumbs",
+              "path": "1,HTML,1,BODY,6,DIV,0,DIV,0,DIV,0,NAV,0,OL",
+              "snippet": "<ol id=\"breadcrumbs\" class=\"yoast-breadcrumb breadcrumb\"><span><span><a href=\"https://live-ged-wp.pantheonsite.io/\">Home</a>  <span class=\"breadcrumb_last\">Accessibility Statement</span></span></span></ol>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Home Accessibility Statement"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||waitrapp.com|accessibility-statement.json",
+    "url": "https://waitrapp.com/accessibility-statement",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".instagram",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,0,LI",
+              "snippet": "<li class=\"instagram\"><a href=\"https://www.instagram.com/waitrapp\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on Instagram\">Instagram</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Instagram"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".twitter",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,1,LI",
+              "snippet": "<li class=\"twitter\"><a href=\"https://twitter.com/waitrapp\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on Twitter\">Twitter</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Twitter"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".facebook",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,2,LI",
+              "snippet": "<li class=\"facebook\"><a href=\"https://www.facebook.com/waitrapp/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on Facebook\">Facebook</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Facebook"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".youtube",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,3,LI",
+              "snippet": "<li class=\"youtube\"><a href=\"https://www.youtube.com/channel/UCrAjic7t93jZfVCoGwc1-ow\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on YouTube\">YouTube</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "YouTube"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".linked-in",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,4,LI",
+              "snippet": "<li class=\"linked-in\"><a href=\"https://www.linkedin.com/company/waitr-inc-\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on LinkedIn\">LinkedIn</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "LinkedIn"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".pinterest",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,0,DIV,2,UL,5,LI",
+              "snippet": "<li class=\"pinterest\"><a href=\"https://www.pinterest.com/Waitrapp\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Visit Waitr on Pinterest\">Pinterest</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Pinterest"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,0,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/how-it-works\">How it Works</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "How it Works"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,1,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/for-restaurants\">Become a Partner</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Become a Partner"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,2,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/cities\">Cities</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Cities"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(4)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,3,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/careers\">Careers</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Careers"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(5)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,4,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/press\">Press</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Press"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top > li:nth-child(6)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,1,UL,5,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/blog\">Waitr Blog</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Waitr Blog"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,0,LI",
+              "snippet": "<li><a href=\"http://support.waitrapp.com\" target=\"_blank\" rel=\"noopener noreferrer\">Support</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Support"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,1,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/contact-us\">Contact Us</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Contact Us"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,2,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/terms\">Terms of Use</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Terms of Use"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(4)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,3,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/privacy-policy\">Privacy Policy</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Privacy Policy"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(5)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,4,LI",
+              "snippet": "<li><a href=\"http://investors.waitrapp.com\" target=\"_blank\" rel=\"noopener noreferrer\">Investors</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Investors"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".split:nth-child(3) > li:nth-child(6)",
+              "path": "1,HTML,1,BODY,2,DIV,0,DIV,0,DIV,2,SECTION,0,DIV,1,DIV,2,UL,5,LI",
+              "snippet": "<li><a activeclassname=\"active\" href=\"/accessibility-statement\">Accessibility</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Accessibility"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.calidagroup.com|site-services|accessibility.aspx?sc_lang=en.json",
+    "url": "https://www.calidagroup.com/site-services/accessibility.aspx?sc_lang=en",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".slides_container",
+              "path": "1,HTML,1,BODY,1,FORM,5,DIV,2,DIV,0,UL",
+              "snippet": "<ul class=\"slides_container\" style=\"overflow: hidden; position: relative; display: block;\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "CALIDA"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".slides_control > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,FORM,5,DIV,2,DIV,0,UL,0,DIV,0,LI",
+              "snippet": "<li style=\"position: absolute; top: 0px; left: 960px; z-index: 0; height: auto;\">",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "CALIDA"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.dol.gov|general|aboutdol|accessibility.json",
+    "url": "https://www.dol.gov/general/aboutdol/accessibility",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".breadcrumbs",
+              "path": "1,HTML,1,BODY,1,DIV,0,DIV,1,DIV,0,DIV,0,DIV,0,DIV,0,NAV,1,UL",
+              "snippet": "<ul class=\"breadcrumbs\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Home About Us Accessibility Statement"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.hbtbank.com|accessibility.json",
+    "url": "https://www.hbtbank.com/accessibility",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#breadcrumbs-nav",
+              "path": "1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,UL",
+              "snippet": "<ul class=\"breadcrumbs\" id=\"breadcrumbs-nav\">\n<a href=\"https://www.hbtbank.com\">Home</a> <span class=\"divider\"> → </span>Accessibility Statement</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "HOME → ACCESSIBILITY STATEMENT"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.iberia.com|us|accessibility-statement|.json",
+    "url": "https://www.iberia.com/us/accessibility-statement/",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".col-md-7 > .ibe-footer__main-container-list",
+              "path": "1,HTML,1,BODY,12,FOOTER,1,DIV,0,DIV,0,DIV,0,DIV,1,DIV,0,DIV,0,DIV,1,DIV,0,UL",
+              "snippet": "<ul class=\"ibe-footer__main-container-list\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Accessibility Services and Information 1-800-994-0704 / accessibility@Iberia.co…"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.ibm.com|able|access_ibm|accessibility_statement.html.json",
+    "url": "https://www.ibm.com/able/access_ibm/accessibility_statement.html",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#ibm-home",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,1,DIV,0,UL,0,LI",
+              "snippet": "<li id=\"ibm-home\"><a href=\"https://www.ibm.com/us/en/\" tabindex=\"0\">IBM®</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "IBM®"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(1)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,0,LI",
+              "snippet": "<li><a class=\"ibm-share-print\" title=\"Print this page\" href=\"#\" rel=\"print\" dojoattrid=\"0\" role=\"button\" tabindex=\"0\">Print this page</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Print this page"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(2)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,1,LI",
+              "snippet": "<li><a class=\"ibm-share-email\" title=\"E-mail this page\" href=\"#\" rel=\"email\" dojoattrid=\"1\" role=\"button\" tabindex=\"-1\">E-mail this page</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "E-mail this page"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(3)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,2,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Facebook"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(4)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,3,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Twitter"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(5)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,4,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Linked In"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul[aria-label=\"Social\\ tool\\ list\"] > li:nth-child(6)",
+              "path": "1,HTML,4,BODY,0,DIV,2,DIV,3,DIV,0,UL,5,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Google+"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "#ibm-navigation-trail > li:nth-child(1)",
+              "path": "1,HTML,4,BODY,0,DIV,4,DIV,0,DIV,0,DIV,1,DIV,0,DIV,1,UL,0,LI",
+              "snippet": "<li><a href=\"/able/index.html\">IBM Accessibility</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "IBM Accessibility"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "#ibm-navigation-trail > li:nth-child(2)",
+              "path": "1,HTML,4,BODY,0,DIV,4,DIV,0,DIV,0,DIV,1,DIV,0,DIV,1,UL,1,LI",
+              "snippet": "<li><a href=\"index.html\">Accessibility at IBM</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Accessibility at IBM"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.idaho.gov|about-us|accessibility|.json",
+    "url": "https://www.idaho.gov/about-us/accessibility/",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".top-nav-links > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,DIV,0,HEADER,3,DIV,0,DIV,1,DIV,0,DIV,0,UL,0,LI",
+              "snippet": "<li> <a href=\"/services/\">Online Services</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Online Services"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top-nav-links > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,1,DIV,0,HEADER,3,DIV,0,DIV,1,DIV,0,DIV,0,UL,1,LI",
+              "snippet": "<li> <a href=\"/agencies/\">A-Z Directory</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " A-Z Directory"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".top-nav-links > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,1,DIV,0,HEADER,3,DIV,0,DIV,1,DIV,0,DIV,0,UL,2,LI",
+              "snippet": "<li> <a href=\"/about-us/contact-help/\">Contact</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " Contact"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ol > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,DIV,1,MAIN,3,DIV,0,DIV,0,DIV,0,OL,0,LI",
+              "snippet": "<li><a href=\"/\">Home</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Home"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ol > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,1,DIV,1,MAIN,3,DIV,0,DIV,0,DIV,0,OL,1,LI",
+              "snippet": "<li> <a href=\"/about-us/\">About Us</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "About Us"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".active",
+              "path": "1,HTML,1,BODY,1,DIV,1,MAIN,3,DIV,0,DIV,0,DIV,0,OL,2,LI",
+              "snippet": "<li class=\"active\"> <a href=\"/about-us/accessibility/\">Accessibility</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Accessibility"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,0,LI",
+              "snippet": "<li> <a href=\"/about-us/access-idaho/\">About Idaho.gov</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "About Idaho.gov"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,1,LI",
+              "snippet": "<li> <a href=\"/about-us/contact-help/\">Contact &amp; Help</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Contact & Help"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,2,LI",
+              "snippet": "<li> <a href=\"/about-us/recursos-en-espanol/\">Recursos en Español</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Recursos en Español"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(4)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,3,LI",
+              "snippet": "<li> <a href=\"/about-us/subscribe-to-idaho-gov/\">Subscribe to Idaho.gov</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Subscribe to Idaho.gov"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(5)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,4,LI",
+              "snippet": "<li> <a href=\"/social-media/\">Social Media</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Social Media"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(6)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,5,LI",
+              "snippet": "<li> <a href=\"/government/\">Government</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Government"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(7)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,6,LI",
+              "snippet": "<li> <a href=\"/government/elected-officials\">Elected Officials</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Elected Officials"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".mobile-links > li:nth-child(8)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,1,DIV,0,DIV,1,DIV,0,UL,7,LI",
+              "snippet": "<li> <a href=\"/services/\">Online Services</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Online Services"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,0,DIV,0,UL,0,LI",
+              "snippet": "<li> <a href=\"/about-us/security-policy\">Security</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Security"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,0,DIV,0,UL,1,LI",
+              "snippet": "<li> <a href=\"https://cybersecurity.idaho.gov/\" rel=\"noopener noreferrer\" target=\"_blank\">Cybersecurity</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Cybersecurity"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,0,DIV,0,UL,2,LI",
+              "snippet": "<li> <a href=\"/about-us/privacy-policy\">Privacy Policy</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Privacy Policy"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav > li:nth-child(4)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,0,DIV,0,UL,3,LI",
+              "snippet": "<li> <a href=\"/about-us/legal-notices\">Legal Notices</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Legal Notices"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav > li:nth-child(5)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,0,DIV,0,UL,4,LI",
+              "snippet": "<li> <a href=\"/about-us/accessibility\">Accessibility</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Accessibility"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,0,LI",
+              "snippet": "<li> <a href=\"https://twitter.com/IDAHOgov\" rel=\"noopener noreferrer\" target=\"_blank\"><i class=\"fab fa-twitter fa-lg\"><span class=\"sr-only\">Twitter Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Twitter Icon"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,1,LI",
+              "snippet": "<li> <a href=\"https://www.facebook.com/Idahogov-2138487699757263/\" rel=\"noopener noreferrer\" target=\"_blank\"><i class=\"fab fa-facebook-f fa-lg\"><span class=\"sr-only\">Facebook Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " \nFacebook Icon"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,2,LI",
+              "snippet": "<li> <a href=\"https://www.youtube.com/user/IDAHOgov\" rel=\"noopener noreferrer\" target=\"_blank\"><i class=\"fab fa-youtube fa-lg\"><span class=\"sr-only\">Youtube Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " \nYoutube Icon"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(4)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,3,LI",
+              "snippet": "<li> <a href=\"https://www.flickr.com/groups/idaho-gov/pool/\" rel=\"noopener noreferrer\" target=\"_blank\"><i class=\"fab fa-flickr fa-lg\"><span class=\"sr-only\">Flickr Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " \nFlickr Icon"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(5)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,4,LI",
+              "snippet": "<li> <a href=\"/about-us/contact-help\"><i class=\"fas fa-envelope fa-lg\"><span class=\"sr-only\">Envelope Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " \nEnvelope Icon"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".footer-nav-social > li:nth-child(6)",
+              "path": "1,HTML,1,BODY,1,DIV,2,FOOTER,1,DIV,0,DIV,2,DIV,1,DIV,0,UL,5,LI",
+              "snippet": "<li> <a href=\"/social-media\"><i class=\"fas fa-plus fa-lg\"><span class=\"sr-only\">Plus Icon</span></i></a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": " \nPlus Icon"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.jiffylube.com|accessibility-statement.json",
+    "url": "https://www.jiffylube.com/accessibility-statement",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".ng-scope[ng-repeat=\"crumb\\ in\\ breadcrumbs\"][ng-class=\"\\{active\\ \\:\\ \\$last\\}\"]:nth-child(1)",
+              "path": "3,HTML,1,BODY,6,DIV,0,DIV,0,UL,1,LI",
+              "snippet": "<li ng-repeat=\"crumb in breadcrumbs\" ng-class=\"{active : $last}\" class=\"ng-scope\">",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "HOME  "
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".active",
+              "path": "3,HTML,1,BODY,6,DIV,0,DIV,0,UL,3,LI",
+              "snippet": "<li ng-repeat=\"crumb in breadcrumbs\" ng-class=\"{active : $last}\" class=\"ng-scope active\">",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "WEBSITE ACCESSIBILITY STATEMENT"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.jjc.edu|student-resources|disability-services|accessibility-statement.json",
+    "url": "https://www.jjc.edu/student-resources/disability-services/accessibility-statement",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".events-feature__list",
+              "path": "1,HTML,1,BODY,3,DIV,0,DIV,3,SECTION,1,DIV,1,DIV,0,UL",
+              "snippet": "<ul class=\"events-feature__list\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "SEP. 28, 2019\nVet Tech Dog Wash Fundraiser and Adoptions\nSEP. 28, 2019\nHome Run…"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.louisiana.gov|accessibility-statement|.json",
+    "url": "https://www.louisiana.gov/accessibility-statement/",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".sidebar-nav",
+              "path": "1,HTML,1,BODY,43,DIV,0,UL",
+              "snippet": "<ul class=\"navbar-nav sidebar-nav\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "ONLINE SERVICES\nJOBS\nGOVERNMENT\nBUSINESS\nVISIT\nLagniappe\nABOUT LOUISIANA\nBRANCH…"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": ".sidebar-nav > .navbar-top",
+              "path": "1,HTML,1,BODY,43,DIV,0,UL,2,UL",
+              "snippet": "<ul class=\"navbar-nav navbar-top\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "ONLINE SERVICES\nJOBS\nGOVERNMENT\nBUSINESS\nVISIT"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.pct.edu|campus-life|disability-services|accessibility-statement.json",
+    "url": "https://www.pct.edu/campus-life/disability-services/accessibility-statement",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": ".col-md-4.col-12:nth-child(7) > .p-2.list-unstyled",
+              "path": "1,HTML,1,BODY,1,DIV,0,DIV,0,DIV,5,FOOTER,0,DIV,0,DIV,0,DIV,0,DIV,0,DIV,0,DIV,6,DIV,0,UL",
+              "snippet": "<ul class=\"list-unstyled p-2\">",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "STAY CONNECTED\nPenn College Magazine\nPenn College Events\n \n \n \n "
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are contained within `<ul>` or `<ol>` parent elements",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.state.nj.us|nj|accessibility.html.json",
+    "url": "https://www.state.nj.us/nj/accessibility.html",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists do not contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(8)",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,8,UL",
+              "snippet": "<ul>\n\t\t\t\t\t  <h6 class=\"border-bottom mt-3\">\n\t\t\t\t\t\t<li><a href=\"/nj/employ/\" target=\"_self\">Employment</a></li>\n\t\t\t\t\t  </h6>\n\t\t\t\t\t</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Employment"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(10)",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,10,UL",
+              "snippet": "<ul>\n\t\t\t\t\t  <h6 class=\"border-bottom mt-3\">\n\t\t\t\t\t\t<li><a href=\"/nj/gov/\" target=\"_self\">Government</a> </li>\n\t\t\t\t\t  </h6>\n\t\t\t\t\t</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Government"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(12)",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,12,UL",
+              "snippet": "<ul>\n\t\t\t\t\t<h6 class=\"border-bottom mt-3\">\n\t\t\t\t\t  <li><a href=\"/nj/safety/\" target=\"_self\">Public Safety &amp; Security</a></li>\n\t\t\t\t\t</h6>\n\t\t\t\t\t</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Public Safety & Security"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(22)",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,22,UL",
+              "snippet": "<ul>\n\t\t\t\t\t<h6 class=\"border-bottom mt-3\">\n\t\t\t\t\t  <li><a href=\"/nj/things/\" target=\"_self\">Things to do in NJ</a></li>\n\t\t\t\t\t</h6>\n\t\t\t\t\t</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Things to do in NJ"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(24)",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,24,UL",
+              "snippet": "<ul>\n\t\t\t\t\t  <h6 class=\"border-bottom mt-3\">\n\t\t\t\t\t\t<li><a href=\"/nj/trans/\" target=\"_self\">Transportation &amp; Motor Vehicles</a></li>\n\t\t\t\t\t  </h6>\n\t\t\t\t\t \n\t\t\t\t\t</ul>",
+              "explanation": "Fix all of the following:\n  List element has direct children that are not allowed inside <li> elements",
+              "nodeLabel": "Transportation & Motor Vehicles"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(8) > h6 > li",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,8,UL,0,H6,0,LI",
+              "snippet": "<li><a href=\"/nj/employ/\" target=\"_self\">Employment</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Employment"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(10) > h6 > li",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,10,UL,0,H6,0,LI",
+              "snippet": "<li><a href=\"/nj/gov/\" target=\"_self\">Government</a> </li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Government"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(12) > h6 > li",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,12,UL,0,H6,0,LI",
+              "snippet": "<li><a href=\"/nj/safety/\" target=\"_self\">Public Safety &amp; Security</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Public Safety & Security"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(22) > h6 > li",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,22,UL,0,H6,0,LI",
+              "snippet": "<li><a href=\"/nj/things/\" target=\"_self\">Things to do in NJ</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Things to do in NJ"
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "ul:nth-child(24) > h6 > li",
+              "path": "1,HTML,1,BODY,14,FOOTER,0,DIV,0,DIV,0,DIV,1,DIV,24,UL,0,H6,0,LI",
+              "snippet": "<li><a href=\"/nj/trans/\" target=\"_self\">Transportation &amp; Motor Vehicles</a></li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Transportation & Motor Vehicles"
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }, {
+    "name": "report_https:||www.transamerica.com|accessibility-statement|.json",
+    "url": "https://www.transamerica.com/accessibility-statement/",
+    "audit": {
+      "list": {
+        "id": "list",
+        "title": "Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).",
+        "description": "Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/list?application=lighthouse).",
+        "score": 1,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [],
+          "items": []
+        }
+      },
+      "listitem": {
+        "id": "listitem",
+        "title": "List items (`<li>`) are not contained within `<ul>` or `<ol>` parent elements.",
+        "description": "Screen readers require list items (`<li>`) to be contained within a parent `<ul>` or `<ol>` to be announced properly. [Learn more](https://dequeuniversity.com/rules/axe/3.1/listitem?application=lighthouse).",
+        "score": 0,
+        "scoreDisplayMode": "binary",
+        "details": {
+          "type": "table",
+          "headings": [{
+            "key": "node",
+            "itemType": "node",
+            "text": "Failing Elements"
+          }],
+          "items": [{
+            "node": {
+              "type": "node",
+              "selector": "#trk-145-15810-X > li:nth-child(1)",
+              "path": "1,HTML,1,BODY,9,HEADER,0,DIV,1,DIV,0,DIV,0,NAV,2,DIV,1,DIV,0,DIV,0,UL,0,LI,1,UL,0,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Products "
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "#trk-145-15810-X > li:nth-child(2)",
+              "path": "1,HTML,1,BODY,9,HEADER,0,DIV,1,DIV,0,DIV,0,NAV,2,DIV,1,DIV,0,DIV,0,UL,0,LI,1,UL,1,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Tools & Services "
+            }
+          }, {
+            "node": {
+              "type": "node",
+              "selector": "#trk-145-15810-X > li:nth-child(3)",
+              "path": "1,HTML,1,BODY,9,HEADER,0,DIV,1,DIV,0,DIV,0,NAV,2,DIV,1,DIV,0,DIV,0,UL,0,LI,1,UL,2,LI",
+              "snippet": "<li>",
+              "explanation": "Fix any of the following:\n  List item does not have a <ul>, <ol> or role=\"list\" parent element",
+              "nodeLabel": "Education "
+            }
+          }],
+          "debugData": {
+            "type": "debugdata",
+            "impact": "serious",
+            "tags": ["cat.structure", "wcag2a", "wcag131"]
+          }
+        }
+      },
+      "dlitem": {
+        "id": "dlitem",
+        "title": "Definition list items are wrapped in `<dl>` elements",
+        "description": "Definition list items (`<dt>` and `<dd>`) must be wrapped in a parent `<dl>` element to ensure that screen readers can properly announce them. [Learn more](https://dequeuniversity.com/rules/axe/3.1/dlitem?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      },
+      "definition-list": {
+        "id": "definition-list",
+        "title": "`<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>` or `<template>` elements.",
+        "description": "When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. [Learn more](https://dequeuniversity.com/rules/axe/3.1/definition-list?application=lighthouse).",
+        "score": null,
+        "scoreDisplayMode": "notApplicable"
+      }
+    }
+  }],
+  "successListUseless": [{
+    "name": "report_http:||noyo.org.uk|accessibility|.json",
+    "url": "http://noyo.org.uk/accessibility/"
+  }, {
+    "name": "report_http:||www.andovervips.co.uk|accessibility.php.json",
+    "url": "http://www.andovervips.co.uk/accessibility.php"
+  }, {
+    "name": "report_http:||www.apdcares.org|accessibility|.json",
+    "url": "http://www.apdcares.org/accessibility/"
+  }, {
+    "name": "report_http:||www.apdcares.org|accessibility|statement|.json",
+    "url": "http://www.apdcares.org/accessibility/statement/"
+  }, {
+    "name": "report_https:||accessibility.ua.edu|statement|.json",
+    "url": "https://accessibility.ua.edu/statement/"
+  }, {
+    "name": "report_https:||cheddars.com|accessibility-statement|.json",
+    "url": "https://cheddars.com/accessibility-statement/"
+  }, {
+    "name": "report_https:||corporate.arcelormittal.com|site-services|accessibility-statement.json",
+    "url": "https://m.corporate.arcelormittal.com/site-services/accessibility-statement"
+  }, {
+    "name": "report_https:||directionscu.org|accessibility-statement|.json",
+    "url": "https://directionscu.org/accessibility-statement/"
+  }, {
+    "name": "report_https:||disabilityin.org|accessibility-statement|.json",
+    "url": "https://disabilityin.org/accessibility-statement/"
+  }, {
+    "name": "report_https:||eastidahocu.org|about-us|accessibility-statement|.json",
+    "url": "https://eastidahocu.org/about-us/accessibility-statement/"
+  }, {
+    "name": "report_https:||fiscal.treasury.gov|accessibility.html.json",
+    "url": "https://fiscal.treasury.gov/accessibility.html"
+  }, {
+    "name": "report_https:||godirect.gov|gpw|accessibility|.json",
+    "url": "https://godirect.gov/gpw/accessibility/"
+  }, {
+    "name": "report_https:||healthfirst.org|healthfirsts-online-accessibility-statement|.json",
+    "url": "https://healthfirst.org/healthfirsts-online-accessibility-statement/"
+  }, {
+    "name": "report_https:||mangos.com|statement-of-accessibility|.json",
+    "url": "https://mangos.com/statement-of-accessibility/"
+  }, {
+    "name": "report_https:||martinsville.in.gov|accessibility-statement|.json",
+    "url": "https://martinsville.in.gov/accessibility-statement/"
+  }, {
+    "name": "report_https:||policy.uncg.edu|university-policies|web_accessibility|.json",
+    "url": "https://policy.uncg.edu/university-policies/web_accessibility/"
+  }, {
+    "name": "report_https:||presbyterian-hospital.phs.org|Pages|accessibility.aspx.json",
+    "url": "https://presbyterian-hospital.phs.org/Pages/accessibility.aspx"
+  }, {
+    "name": "report_https:||studentaccess.illinoisstate.edu|policies|statement|.json",
+    "url": "https://studentaccess.illinoisstate.edu/policies/statement/"
+  }, {
+    "name": "report_https:||support.talis.com|hc|en-us|articles|360000695158-Web-Accessibility-Statement.json",
+    "url": "https://support.talis.com/hc/en-us/articles/360000695158-Web-Accessibility-Statement?mobile_site=true"
+  }, {
+    "name": "report_https:||tpfcu.com|accessibility-statement|.json",
+    "url": "https://tpfcu.com/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.accenture.com|us-en|about|accessibility-statement.json",
+    "url": "https://www.accenture.com/us-en/about/accessibility-statement"
+  }, {
+    "name": "report_https:||www.access-board.gov|the-board|policies|accessibility-statement.json",
+    "url": "https://www.access-board.gov/the-board/policies/accessibility-statement"
+  }, {
+    "name": "report_https:||www.adapacific.org|accessibility-statement.json",
+    "url": "https://www.adapacific.org/accessibility-statement"
+  }, {
+    "name": "report_https:||www.ahni.com|accessibility.html.json",
+    "url": "https://www.ahni.com/accessibility.html"
+  }, {
+    "name": "report_https:||www.apple.com|accessibility|.json",
+    "url": "https://www.apple.com/accessibility/"
+  }, {
+    "name": "report_https:||www.avesis.com|Commercial3|Accessibility.aspx.json",
+    "url": "https://www.avesis.com/Commercial3/Accessibility.aspx"
+  }, {
+    "name": "report_https:||www.beaverton.k12.or.us|accessibility-statement.json",
+    "url": "https://www.beaverton.k12.or.us/accessibility-statement"
+  }, {
+    "name": "report_https:||www.becu.org|accessibility-statement.json",
+    "url": "https://www.becu.org/accessibility-statement"
+  }, {
+    "name": "report_https:||www.bloomingtonmn.gov|com|website-accessibility-statement.json",
+    "url": "https://www.bloomingtonmn.gov/com/website-accessibility-statement"
+  }, {
+    "name": "report_https:||www.boehringer-ingelheim.com|accessibility-statement.json",
+    "url": "https://www.boehringer-ingelheim.com/accessibility-statement"
+  }, {
+    "name": "report_https:||www.boia.org|accessibility-statement.json",
+    "url": "https://www.boia.org/accessibility-statement"
+  }, {
+    "name": "report_https:||www.brushmoderndentistry.com|accessibility-statement.json",
+    "url": "https://www.brushmoderndentistry.com/accessibility-statement"
+  }, {
+    "name": "report_https:||www.capitalone.com|about|accessibility-commitment|.json",
+    "url": "https://www.capitalone.com/about/accessibility-commitment/"
+  }, {
+    "name": "report_https:||www.cdc.gov|contact|accessibility.html.json",
+    "url": "https://www.cdc.gov/contact/accessibility.html"
+  }, {
+    "name": "report_https:||www.cengage.com|accessibility|.json",
+    "url": "https://www.cengage.com/accessibility/"
+  }, {
+    "name": "report_https:||www.chase.com|digital|resources|accessibility.json",
+    "url": "https://www.chase.com/digital/resources/accessibility"
+  }, {
+    "name": "report_https:||www.chwchospital.org|statement-of-accessibility|.json",
+    "url": "https://www.chwchospital.org/statement-of-accessibility/"
+  }, {
+    "name": "report_https:||www.commerce.wa.gov|about-us|accessibility-statement|.json",
+    "url": "https://www.commerce.wa.gov/about-us/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.corbymortgage.com|ada-accessibility-statement|.json",
+    "url": "https://www.corbymortgage.com/ada-accessibility-statement/"
+  }, {
+    "name": "report_https:||www.courts.ca.gov|11524.htm?rdeLocaleAttr=en.json",
+    "url": "https://www.courts.ca.gov/11524.htm?rdeLocaleAttr=en"
+  }, {
+    "name": "report_https:||www.csus.edu|information-resources-technology|ati|accessibility-statement.html.json",
+    "url": "https://www.csus.edu/information-resources-technology/ati/accessibility-statement.html"
+  }, {
+    "name": "report_https:||www.deq.ok.gov|deq-accessibility-statement|.json",
+    "url": "https://www.deq.ok.gov/deq-accessibility-statement/"
+  }, {
+    "name": "report_https:||www.exploreroundtop.com|website-accessibility|.json",
+    "url": "https://www.exploreroundtop.com/website-accessibility/"
+  }, {
+    "name": "report_https:||www.firestonecompleteautocare.com|accessibility-statement|.json",
+    "url": "https://www.firestonecompleteautocare.com/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.flybirmingham.com|accessibility|.json",
+    "url": "https://www.flybirmingham.com/accessibility/"
+  }, {
+    "name": "report_https:||www.fns.usda.gov|web-accessibility-statement.json",
+    "url": "https://www.fns.usda.gov/web-accessibility-statement"
+  }, {
+    "name": "report_https:||www.ge.com|accessibility.json",
+    "url": "https://www.ge.com/accessibility"
+  }, {
+    "name": "report_https:||www.gov.uk|help|accessibility.json",
+    "url": "https://www.gov.uk/help/accessibility-statement"
+  }, {
+    "name": "report_https:||www.greystoneeventcenter.com|ada-compliance.json",
+    "url": "https://www.greystoneeventcenter.com/ada-compliance"
+  }, {
+    "name": "report_https:||www.guildmortgage.com|accessibility-statement|.json",
+    "url": "https://www.guildmortgage.com/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.heart.org|en|about-us|statements-and-policies|accessibility-statement.json",
+    "url": "https://www.heart.org/en/about-us/statements-and-policies/accessibility-statement"
+  }, {
+    "name": "report_https:||www.hindscc.edu|accessibility-statement.json",
+    "url": "https://www.hindscc.edu/accessibility-statement"
+  }, {
+    "name": "report_https:||www.humanrightscommission.vic.gov.au|this-site-s-accessibility.json",
+    "url": "https://www.humanrightscommission.vic.gov.au/this-site-s-accessibility"
+  }, {
+    "name": "report_https:||www.iowa.gov|accessibility-statement.json",
+    "url": "https://www.iowa.gov/accessibility-statement"
+  }, {
+    "name": "report_https:||www.joemausjeep.com|adasitecompliance.json",
+    "url": "https://www.joemausjeep.com/adasitecompliance"
+  }, {
+    "name": "report_https:||www.lsu.edu|accessibility|.json",
+    "url": "https://www.lsu.edu/accessibility/"
+  }, {
+    "name": "report_https:||www.mainestatecu.org|accessibility-statement|.json",
+    "url": "https://www.mainestatecu.org/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.martin.fl.us|Accessibility.json",
+    "url": "https://www.martin.fl.us/Accessibility"
+  }, {
+    "name": "report_https:||www.medtronic.com|us-en|privacy-statement|accessibility-statement.html|.json",
+    "url": "https://www.medtronic.com/us-en/privacy-statement/accessibility-statement.html/"
+  }, {
+    "name": "report_https:||www.morgan.edu|accessibility.html.json",
+    "url": "https://www.morgan.edu/accessibility.html"
+  }, {
+    "name": "report_https:||www.nature.com|info|accessibility-statement.json",
+    "url": "https://www.nature.com/info/accessibility-statement"
+  }, {
+    "name": "report_https:||www.ncua.gov|accessibility-statement.json",
+    "url": "https://www.ncua.gov/accessibility-statement"
+  }, {
+    "name": "report_https:||www.nisbets.jobs|accessibility.json",
+    "url": "https://www.nisbets.jobs/accessibility"
+  }, {
+    "name": "report_https:||www.nsw.gov.au|accessibility-statement|.json",
+    "url": "https://www.nsw.gov.au/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.pearson.com|us|accessibility.html.json",
+    "url": "https://www.pearson.com/us/accessibility.html"
+  }, {
+    "name": "report_https:||www.piowealth.com|accessibility-declaration.html.json",
+    "url": "https://www.piowealth.com/accessibility-declaration.html"
+  }, {
+    "name": "report_https:||www.plasticsurgery.org|accessibility-statement.json",
+    "url": "https://www.plasticsurgery.org/accessibility-statement"
+  }, {
+    "name": "report_https:||www.polaris.com|en-us|ada|.json",
+    "url": "https://www.polaris.com/en-us/ada/"
+  }, {
+    "name": "report_https:||www.qnbtrust.bank|Accessibility-Statement.json",
+    "url": "https://www.qnbtrust.bank/Accessibility-Statement"
+  }, {
+    "name": "report_https:||www.secumd.org|accessibility-statement.json",
+    "url": "https://www.secumd.org/accessibility-statement"
+  }, {
+    "name": "report_https:||www.sefcu.com|accessibility.json",
+    "url": "https://www.sefcu.com/accessibility"
+  }, {
+    "name": "report_https:||www.swfwmd.state.fl.us|about|statement-accessibility.json",
+    "url": "https://www.swfwmd.state.fl.us/about/statement-accessibility"
+  }, {
+    "name": "report_https:||www.tiresplus.com|accessibility-statement|.json",
+    "url": "https://www.tiresplus.com/accessibility-statement/"
+  }, {
+    "name": "report_https:||www.tn.gov|web-policies|accessibility.html.json",
+    "url": "https://www.tn.gov/web-policies/accessibility.html"
+  }, {
+    "name": "report_https:||www.troy.edu|accessibility-statement.html.json",
+    "url": "https://www.troy.edu/accessibility-statement.html"
+  }, {
+    "name": "report_https:||www.uml.edu|accessibility|.json",
+    "url": "https://www.uml.edu/accessibility/"
+  }, {
+    "name": "report_https:||www.unionbank.com|about-us|accessibility.json",
+    "url": "https://www.unionbank.com/about-us/accessibility"
+  }, {
+    "name": "report_https:||www.utc.com|accessibility-statement.json",
+    "url": "https://www.utc.com/accessibility-statement"
+  }, {
+    "name": "report_https:||www.uv.es|uvweb|uvdisability|en|presentacio|site-s-accessibility-1285971666775.html.json",
+    "url": "https://www.uv.es/uvweb/uvdisability/en/presentacio/site-s-accessibility-1285971666775.html"
+  }, {
+    "name": "report_https:||www.vi-mobilities.co.uk|accessibility-feat.json",
+    "url": "https://www.vi-mobilities.co.uk/accessibility-feat"
+  }, {
+    "name": "report_https:||www.voaohin.org|accessibility.json",
+    "url": "https://www.voaohin.org/accessibility"
+  }, {
+    "name": "report_https:||www.wsfsbank.com|Accessibility-Statement.json",
+    "url": "https://www.wsfsbank.com/Accessibility-Statement"
+  }, {
+    "name": "report_https:||ysu.edu|accessibility.json",
+    "url": "https://ysu.edu/accessibility"
+  }, {
+    "name": "report_https:||zoo.sandiegozoo.org|accessibility-statement.json",
+    "url": "https://zoo.sandiegozoo.org/accessibility-statement"
+  }]
+}

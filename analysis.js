@@ -2,6 +2,9 @@
 const request = require('request');
 const util = require('util');
 const fs = require("fs");
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
+const puppeteer = require('puppeteer');
 const ReportGenerator = require('lighthouse/lighthouse-core/report/report-generator');
 
 function green(s) {
@@ -40,6 +43,7 @@ let taskCounts = 10;
 let quiet = false;
 let path = './report/';
 let generateHtml = false;
+let displayAnalysis = false;
 
 function argHandle() {
   /* eslint-disable */
@@ -61,6 +65,9 @@ function argHandle() {
     if (args[i] === '-html') {
       generateHtml = true;
     }
+    if (args[i] === '-dis') {
+      displayAnalysis = true;
+    }
     if (args[i] === '-h') {
       console.log(`
         ---------------------------------------------------
@@ -70,12 +77,15 @@ function argHandle() {
         -p    [str] the path of report file.
         -q    [bool] be quiet when run.
         -html geneate the html report.
+        -dis  [bool] use display analysis, input displayResult.json
         ---------------------------------------------------
         `);
-      return;
+      return false;
     }
   }
+  return true;
 }
+
 
 function analysis() {
   // Analysis Report Structure
@@ -87,6 +97,7 @@ function analysis() {
   reportResult.success = {
     "has accessibility error": 0,
     "useless report": 0,
+    'has list error': 0,
   };
   reportResult.successList = [];
   reportResult.successListUseless = [];
@@ -169,8 +180,53 @@ function analysis() {
   console.log(green('[*] Analysis生成完毕,保存至' + reportPath));
 }
 
+function analysisDisplay(path) {
+  const validList = ['OL', 'UL', 'DL', 'ol', 'ul', 'dl'];
+  const resList = JSON.parse(fs.readFileSync(path).toString());
+  console.log(resList.length);
+  const analysisResult = {};
+  for (let i = 0; i < resList.length; i++) {
+    // let url = resList[i].url;
+    let res = resList[i].result;
+    for (let item of res) {
+      if (item.self) {
+        let key = item.self.nodeName + '_' + item.self.display;
+        console.log(key);
+        if (analysisResult[key] == undefined) {
+          analysisResult[key] = 1;
+        } else {
+          analysisResult[key]++;
+        }
+      }
+      if (item.child) {
+        let key = item.child.nodeName + '_' + item.child.display;
+        if (analysisResult[key] == undefined) {
+          analysisResult[key] = 1;
+        } else {
+          analysisResult[key]++;
+        }
+      }
+      if (item.parent) {
+        let key = item.parent.nodeName + '_' + item.parent.display;
+        if (analysisResult[key] == undefined) {
+          analysisResult[key] = 1;
+        } else {
+          analysisResult[key]++;
+        }
+      }
+    }
+  }
+  console.log(analysisResult);
+  fs.writeFileSync('displayAnalysis.json', JSON.stringify(analysisResult));
+}
+
 function main() {
-  argHandle();
-  analysis(path);
+  if (argHandle()) {
+    if (displayAnalysis) {
+      analysisDisplay(path);
+    } else
+      analysis(path);
+  }
+
 }
 main();

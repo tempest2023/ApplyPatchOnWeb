@@ -8,7 +8,6 @@ const request = require('request');
 const rp = require('request-promise');
 const util = require('util');
 const fs = require("fs");
-const $ = require("jquery");
 
 const patchUrl = 'http://127.0.0.1:5000/patch'
 
@@ -53,7 +52,9 @@ function CSSDeclarationToJSON(css) {
 
 function CSSFormat(name) {
   let newName = name.replace(/([A-Z])/g, "-$1").toLowerCase();
-  if (name.indexOf('webkit') != -1) {
+  if (newName.slice(0, 6) === 'webkit') {
+    newName = '-' + newName;
+  } else if (newName.slice(0, 3) === 'moz') {
     newName = '-' + newName;
   }
   return newName;
@@ -536,5 +537,13 @@ $(document).ready(function() {
     console.log('targetList:', taskList);
     await patchByAnalysis(reportData, taskList);
   });
+  $('#random_btn').click(e => {
+    randomly = !randomly;
+    if (randomly) {
+      $('#random_btn').text('开启随机');
+    } else {
+      $('#random_btn').text('关闭随机');
+    }
+  })
   // main();
 });

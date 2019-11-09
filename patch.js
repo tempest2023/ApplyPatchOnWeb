@@ -6,6 +6,7 @@ let analysis = null;
 let randomly = true;
 let launchLighthouse = true;
 let headless = true;
+let displayAnalysis = false;
 /* eslint-disable */
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
@@ -32,6 +33,7 @@ function listFiles(path = './html') {
 /* eslint-enable */
 
 const patchUrl = 'http://127.0.0.1:5000/patch'
+const clusterUrl = 'http://127.0.0.1:5000/cluster'
 /*
   patchData:{
     insert: CSSDeclarationObject // 插入元素的CSS patch
@@ -42,14 +44,24 @@ async function getPatch(styleData) {
     uri: patchUrl,
     method: "POST",
     headers: {
-      "content-type": "application/json",
+      "content-type": "application/json"
     },
     body: styleData,
-    json: true,
+    json: true
   });
-  return {
-    'insert': patchData
-  };
+  return {'insert': patchData};
+}
+async function getCluster(domData) {
+  let clusterData = await rp({
+    uri: clusterUrl,
+    method: 'POST',
+    headers: {
+      "content-type": "application/json"
+    },
+    body: domData,
+    json: true
+  });
+  return clusterData;
 }
 
 function bindTestOutput(page) {
@@ -78,6 +90,24 @@ function bindTestOutput(page) {
         child:[CSSDeclarationObject], // li元素原本的css样式, 多个li应该在一个ul下,所以是数组
         insert: CSSDeclarationObject, // 插入ul后ul的css样式
       }]
+  }
+  documentList = {
+    root: {
+      nodeName: '',
+      class: '',
+      id: '',
+      inlineStyle: '',
+      role: {},
+      dataset:{},
+    },
+    children: [{
+      nodeName: '',
+      class: '',
+      id: '',
+      inlineStyle: '',
+      role: {},
+      dataset:{},
+    },{} ]
   }
 */
 // This function is used in page which means it has a totally different env.
@@ -115,23 +145,55 @@ function generateStyleList(elementSelectors) {
             }
           }
         }
-        if (nth != 1)
+        if (nth != 1) 
           selector += ":nth-of-type(" + nth + ")";
-      }
+        }
       path.unshift(selector);
       el = el.parentNode;
     }
     return path.join(" > ");
   }
+  const domList = {
+    'root': {
+      'nodeName': '',
+      'class': '',
+      'inlineStyle': '',
+      'role': '',
+      'dataset': {},
+      'id': ''
+    },
+    'children': []
+  }
+  const recordDomFeature = function(root, children) {
+    // 记录dom信息用于分类
+    domList['root']['nodeName'] = root.nodeName.toLowerCase();
+    domList['root']['inlineStyle'] = root.getAttribute('style').replace(/\n/g, ' ');
+    // domList['root']['style'] = window.getComputedStyle(root);
+    domList['root']['id'] = root.getAttribute('id');
+    domList['root']['class'] = root.getAttribute('class').replace(/\n/g, ' ');
+    domList['root']['role'] = root.getAttribute('role').replace(/\n/g, ' ');
+    domList['root']['dataset'] = root.dataset;
+    for (let item of children) {
+      let child = {};
+      child['nodeName'] = item.nodeName;
+      child['inlineStyle'] = item.getAttribute('style');
+      // child['style'] = window.getComputedStyle(item);
+      child['id'] = item.getAttribute('id');
+      child['class'] = item.getAttribute('class');
+      child['role'] = item.getAttribute('role');
+      child['dataset'] = item.dataset;
+      domList['children'].push(child);
+    }
+  }
   const styleList = {
     'ul': [],
-    'li': [],
+    'li': []
   };
+
   // 处理ul缺少li的错误
   for (let sel of elementSelectors['ul']) {
     let el = window.document.querySelector(sel);
     markPosition(el);
-
     // 获取child信息
     try {
       if (el !== null && el !== undefined) {
@@ -141,6 +203,7 @@ function generateStyleList(elementSelectors) {
           'insert': []
         };
         let children = [...el.children];
+        recordDomFeature(el, children);
         for (let i in children) {
           if (children[i] != undefined && children[i].nodeName !== "LI" && children[i].nodeName !== "DT" && children[i].nodeName !== "DD") {
             let li = document.createElement('li');
@@ -150,6 +213,7 @@ function generateStyleList(elementSelectors) {
           }
         }
         styleList['ul'].push(arg);
+
       }
     } catch (e) {
       console.log('由于页面元素动态变化的原因,出现元素无法找到的情况,无法自动注入补丁,跳过此页面');
@@ -170,13 +234,16 @@ function generateStyleList(elementSelectors) {
             arg['lipath'].push(sel);
             isAdded = true;
           }
+
         }
         if (!isAdded) {
+          // 在第一次出现的时候获取记录元素的信息
+          // recordDomFeature(el.parentNode, [...el.parentNode.children]);
           let arg = {
             'selector': null,
             'child': [],
             'insert': null,
-            'lipath': [],
+            'lipath': []
           };
           let ul = document.createElement('ul');
           wrap(el, ul);
@@ -185,6 +252,7 @@ function generateStyleList(elementSelectors) {
           arg['child'].push(JSON.stringify(window.getComputedStyle(el)));
           arg['lipath'].push(sel);
           styleList['li'].push(arg);
+
         }
       }
     } catch (e) {
@@ -192,6 +260,7 @@ function generateStyleList(elementSelectors) {
       continue;
     }
   }
+  console.log(JSON.stringify(domList));
   return styleList;
 }
 
@@ -220,6 +289,95 @@ function applyPatch(patchList) {
   return true;
 }
 
+/* eslint-disable */
+// This function is used in page which means it has a totally different env.
+function findListElement() {
+  /*
+  [
+    self:{
+      nodeName:'',
+      display:''
+    },
+    parent:{
+      nodeName:'',
+      display:''
+    },
+    child:{
+      nodeName:'',
+      display:''
+    }
+  ]
+   */
+  const res = [];
+  const recordData = function(elements) {
+    let els = elements;
+    if (els.length != 0) {
+      for (let i = 0; i < els.length; i++) {
+        if (els[i] === undefined) {
+          continue;
+        }
+        let nowData = {
+          'self': {
+            'nodeName': els[i].nodeName,
+            'display': window.getComputedStyle(els[i]).display
+          }
+        }
+        if (els[i].parentNode) {
+          nowData['parent'] = {
+            'nodeName': els[i].parentNode.nodeName,
+            'display': window.getComputedStyle(els[i].parentNode).display
+          };
+        }
+        if (els[i].children != undefined && els[i].children.length > 0) {
+          nowData['child'] = {
+            'nodeName': els[i].children[0].nodeName,
+            'display': window.getComputedStyle(els[i].children[0]).display
+          };
+        }
+        res.push(nowData);
+      }
+    }
+  }
+  // 检索页面所有ul和dl元素的布局
+  recordData([...document.getElementsByTagName('ul')]);
+  recordData([...document.getElementsByTagName('dl')]);
+  recordData([...document.getElementsByTagName('ol')]);
+  recordData([...document.getElementsByTagName('li')]);
+  recordData([...document.getElementsByTagName('dd')]);
+  return res;
+}
+// This function is used in page which means it has a totally different env.
+function findListElementsNum() {
+  const res = [];
+  const recordData = function(elements) {
+    let els = elements;
+    if (els.length != 0) {
+      for (let i = 0; i < els.length; i++) {
+        if (els[i] === undefined) {
+          continue;
+        }
+        let nowData = {};
+        nowData['selfName'] = els[i].nodeName;
+        if (els[i].children != undefined && els[i].children.length > 0) {
+          let childNum = 0;
+          for (let child of els[i].children) {
+            if (child && child.nodeName == 'LI' || child.nodeName == 'DD') {
+              childNum++;
+            }
+          }
+          nowData['childNum'] = childNum;
+        }
+        res.push(nowData);
+      }
+    }
+  }
+  // 检索页面所有ul和dl元素的布局
+  recordData([...document.getElementsByTagName('ul')]);
+  recordData([...document.getElementsByTagName('dl')]);
+  recordData([...document.getElementsByTagName('ol')]);
+  return res;
+}
+/* eslint-enable */
 function generateTaskList(successList, tasks) {
   let taskList;
   if (tasks > successList.length) {
@@ -289,7 +447,7 @@ async function generatePatchList(styleList) {
     for (let child of item['child']) {
       let data = {
         'child': child,
-        'insert': insert,
+        'insert': insert
       };
       // fs.writeFileSync('output.txt', 'send arg for patch:\n' + JSON.stringify(data) + '\n');
       let patchData = await getPatch(data);
@@ -306,7 +464,7 @@ async function generatePatchList(styleList) {
       let insert = item['insert'][index];
       let data = {
         'child': child,
-        'insert': insert,
+        'insert': insert
       }
       console.log(item['selector']);
       // fs.writeFileSync('output.txt', 'send arg for patch:\n' + JSON.stringify(data) + '\n');
@@ -321,19 +479,17 @@ async function generatePatchList(styleList) {
   return patchList;
 }
 
-
 async function launchBrowserWithInject(url, elementSelectors) {
   // Use Puppeteer to launch headful Chrome and don't use its default 800x600 viewport.
-  const browser = await puppeteer.launch({
-    headless,
-    defaultViewport: null,
-  });
+  const browser = await puppeteer.launch({headless, defaultViewport: null});
   // Wait for Lighthouse to open url, then customize network conditions.
   // Note: this will re-establish these conditions when LH reloads the page. Think that's ok....
   browser.on('targetcreated', async () => {
     const pages = await browser.pages();
     let pageFilterResult = pages.filter(item => {
-      return item != null ? item.url() === url : false;
+      return item != null
+        ? item.url() === url
+        : false;
     });
     if (pageFilterResult.length === 1) {
       const page = pageFilterResult[0];
@@ -360,10 +516,7 @@ async function launchBrowserWithInject(url, elementSelectors) {
 }
 
 async function launchBrowserWithPatch(url, elementSelectors) {
-  const browser = await puppeteer.launch({
-    headless,
-    defaultViewport: null,
-  });
+  const browser = await puppeteer.launch({headless, defaultViewport: null});
   const page = await browser.newPage();
   await page.goto(url).catch(e => {
     console.log('[*] Error:跳转页面超时,跳过此页面.', e);
@@ -387,6 +540,31 @@ async function launchBrowserWithPatch(url, elementSelectors) {
   });
   return browser;
 }
+/* This function is for recording some statistics which means the evaluating function is flexiable */
+async function launchBrowser(urls) {
+  const browser = await puppeteer.launch({headless, defaultViewport: null});
+  const page = await browser.newPage();
+  const statistics = [];
+  for (let url of urls) {
+    console.log('[*] 加载页面' + url + '  ...');
+    await page.goto(url).catch(e => {
+      console.log('[*] Error:跳转页面超时,跳过此页面.', e);
+      return browser;
+    });
+    // Bind test output
+    bindTestOutput(page);
+    // find elements' style in page by elementSelectors
+    let pageResult = await page.evaluate(findListElementsNum).catch(e => {
+      console.log('[*]页面内执行代码出错');
+      console.log(e);
+    });
+    statistics.push({'url': url, 'result': pageResult});
+    console.log('数据记录完成');
+  }
+  //记录完所有数据之后存储数据
+  fs.writeFileSync('listResult.json', JSON.stringify(statistics));
+  return browser.close();
+}
 
 async function lighthouseCheck(browser, url) {
   let filePath = 'reportPatch/' + url.replace(/[/]/g, '|') + '.json';
@@ -399,15 +577,13 @@ async function lighthouseCheck(browser, url) {
     disableStorageReset: true,
     emulatedFormFactor: 'desktop',
     port: (new URL(browser.wsEndpoint())).port,
-    output: 'json',
+    output: 'json'
   };
 
   // Run Lighthouse.
   try {
     !quiet && console.log('[*] ' + '运行lighthouse for ', url);
-    const {
-      lhr,
-    } = await lighthouse(url, flagsDesktop, null);
+    const {lhr} = await lighthouse(url, flagsDesktop, null);
     fs.writeFileSync(filePath, JSON.stringify(lhr));
     !quiet && console.log('[*] ' + ': 完成PatchAudit,生成文件 ' + filePath);
     !quiet && console.log(`Lighthouse scores: ${Object.values(lhr.categories).map(c => c.score).join(', ')}`);
@@ -418,6 +594,23 @@ async function lighthouseCheck(browser, url) {
 }
 
 async function patchByAnalysis(filepath, tasks) {
+  // run browser to record data
+  if (displayAnalysis) {
+    const readUrls = function(path = 'catalog.txt') {
+      const data = fs.readFileSync(path);
+      return data.toString().split('\n').filter(item => {
+        if (item.length < 4) {
+          return false;
+        }
+        let s = item[0] + item[1] + item[2] + item[3];
+        return s === 'http';
+      });
+    }
+    const urls = readUrls(filepath).slice(0, tasks);
+    launchBrowser(urls);
+    return;
+  }
+  // run browser to fix problem.
   const data = fs.readFileSync(filepath).toString();
   const originData = JSON.parse(data);
   // get taskList by analysis report.successList
@@ -430,16 +623,13 @@ async function patchByAnalysis(filepath, tasks) {
     if (launchLighthouse) {
       const browser = await launchBrowserWithInject(url, elementSelectors);
       await lighthouseCheck(browser, url);
-      console.log('[*] open this page for 20s');
-      await setTimeout(async () => {
-        await browser.close();
-      }, 20000);
+      await browser.close();
     } else {
       const browser = await launchBrowserWithPatch(url, elementSelectors);
-      console.log('[*] open this page for 20s');
+      console.log('[*] open this page for 200s');
       await setTimeout(async () => {
         await browser.close();
-      }, 20000);
+      }, 200000);
     }
   }
 }
@@ -463,13 +653,23 @@ function handleOpts() {
       quiet = true;
     }
     if (args[i] === '-r') {
-      randomly = args[i + 1] === 'false' ? false : true || randomly;
+      randomly = args[i + 1] === 'false'
+        ? false
+        : true || randomly;
     }
     if (args[i] === '-l') {
-      launchLighthouse = args[i + 1] === 'false' ? false : true || launchLighthouse;
+      launchLighthouse = args[i + 1] === 'false'
+        ? false
+        : true || launchLighthouse;
     }
-    if (args[i] === '-headless') {
-      headless = args[i + 1] === 'false' ? false : true || headless;
+    if (args[i] === '--headless') {
+      headless = args[i + 1] === 'false'
+        ? false
+        : true || headless;
+    }
+    if (args[i] === '--dis') {
+      // a输入路径为url路径
+      displayAnalysis = true;
     }
     if (args[i] === '-h') {
       console.log(`
@@ -481,7 +681,10 @@ function handleOpts() {
         -n        [int] how many patch task you want to run in reportResult?
         -r        [bool] whether choosing task randomly. (default: true)
         -l        [bool] whether launching lighthouse. (default: true)
-        -headless [bool] whether using headless browser. (default: true)
+        --dis     whether using display recording with url.txt(-a)
+        --headless [bool] whether using headless browser. (default: true)
+        example:
+        node patch -a reportResult_1568460591527.json -n 100 -r false -l false -headless
         ---------------------------------------------------
         `);
       return;
